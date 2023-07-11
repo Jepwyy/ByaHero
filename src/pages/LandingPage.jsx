@@ -1,16 +1,20 @@
 import React from 'react'
-import Logo from '../assets/img/Logo.png'
+import Logo from '../assets/img/Logoo.png'
+import { Link } from 'react-router-dom'
 const LandingPage = () => {
   return (
-    <div className='min-h-[100vh] bg-[#F2F4F3]'>
-      <nav className='flex justify-between items-center p-5'>
+    <div className='min-h-[100vh] bg-[#fff]'>
+      <nav className='flex justify-between items-center border-b border-[#ccc] py-2 px-10'>
         <div className='flex items-center'>
-          <img className='h-[4rem]' src={Logo} />
-          <h1>ByaHero</h1>
+          <img className='h-[2.8rem]' src={Logo} />
         </div>
-        <div>
-          <button>Login</button>
-          <button className='bg-[#4BEE79]'>Get started</button>
+        <div className='flex gap-2'>
+          <Link
+            to={'/auth'}
+            className='text-white bg-black py-2 px-4 rounded font-medium'
+          >
+            Login
+          </Link>
         </div>
       </nav>
     </div>
