@@ -5,6 +5,9 @@ const Login = () => {
   return (
     <div className='flex flex-col gap-2'>
       <div>
+        <TextField id='standard-basic' label='Name' variant='standard' />
+      </div>
+      <div>
         <TextField id='standard-basic' label='Email' variant='standard' />
       </div>
       <div>
