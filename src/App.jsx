@@ -20,8 +20,8 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/overview' element={<OverviewPage />} />
           <Route path='/auth' element={<LoginPage />} />
+          <Route path='/overview' element={<OverviewPage />} />
         </Routes>
       </Router>
     </QueryClientProvider>
