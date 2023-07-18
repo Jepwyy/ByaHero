@@ -6,7 +6,7 @@ import { UserAuth } from '../context/authContext'
 import axios from '../api/api'
 const Header = () => {
   const navigate = useNavigate()
-  const { setToken, setUser } = UserAuth()
+  const { setToken, setUser, user } = UserAuth()
   const mutation = useMutation({
     mutationFn: () =>
       axios.delete('/auth/logout', {
@@ -26,11 +26,12 @@ const Header = () => {
     mutation.mutate()
   }
   return (
-    <nav className='flex justify-between items-center border-b border-[#ccc] py-2 px-10'>
+    <nav className='flex justify-between items-center bg-white border-b border-[#eee] py-2 px-10'>
       <div className='flex items-center'>
         <img className='h-[2.8rem]' src={Logo} />
       </div>
-      <div onClick={logout} className='flex gap-2'>
+      <div onClick={logout} className='flex items-center gap-5'>
+        <h1>Hello! {user.name}</h1>
         <button className='text-white bg-black py-2 px-4 rounded font-medium'>
           Logout
         </button>

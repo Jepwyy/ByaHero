@@ -8,8 +8,8 @@ const Layout = () => {
         <div className='flex flex-col flex-1 w-full'>
           <Header />
         </div>
-        <div className='flex-1 z-[0]   h-[100vh] w-full overflow-auto relative scrollbar-thin scrollbar-thumb-black scrollbar-track-[#101112]'>
-          <div className='min-h-full'>
+        <div className='flex-1 z-[0] bg-[#FAFAFA] h-[100vh] w-full overflow-auto relative scrollbar-thin scrollbar-thumb-black scrollbar-track-[#101112]'>
+          <div className=' px-[20%]'>
             <Outlet />
           </div>
         </div>
