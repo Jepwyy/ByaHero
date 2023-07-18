@@ -1,5 +1,6 @@
 import React from 'react'
 import { UserAuth } from '../context/authContext'
+import { Link } from 'react-router-dom'
 const OverviewPage = () => {
   const { token, user } = UserAuth()
 
@@ -31,9 +32,12 @@ const OverviewPage = () => {
             placeholder='Search branch name...'
           />
         </div>
-        <button className='bg-black py-2 px-3 font-medium rounded text-white'>
+        <Link
+          to={'/plan'}
+          className='bg-black py-2 px-3 font-medium rounded text-white'
+        >
           Add
-        </button>
+        </Link>
       </div>
       <div>list</div>
     </div>

@@ -22,7 +22,7 @@ const LoginPage = () => {
           </button>
         </div>
         {active === 'Login' && <Login />}
-        {active === 'Register' && <Register />}
+        {active === 'Register' && <Register setActive={setActive} />}
       </div>
     </div>
   )

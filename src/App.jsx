@@ -7,6 +7,8 @@ import LoginPage from './pages/LoginPage'
 import LoginChecker from './utils/loginChecker'
 import Layout from './Layout/Layout'
 import PrivateRoute from './utils/PrivateRoute'
+import CreatePlan from './pages/CreatePlan'
+import PersistLogin from './utils/PersistLogin'
 
 function App() {
   const queryClient = new QueryClient({
@@ -22,12 +24,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route element={<LoginChecker />}>
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/auth' element={<LoginPage />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<LoginChecker />}>
+              <Route path='/' element={<LandingPage />} />
+              <Route path='/auth' element={<LoginPage />} />
+            </Route>
             <Route element={<PrivateRoute />}>
               <Route element={<Layout />}>
                 <Route path='/overview' element={<OverviewPage />} />
+                <Route path='/plan' element={<CreatePlan />} />
               </Route>
             </Route>
           </Route>

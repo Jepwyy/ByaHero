@@ -1,23 +1,20 @@
 import React from 'react'
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet, useNavigate, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import useCookies from '../hooks/useCookies'
 import { UserAuth } from '../context/authContext'
 
 const LoginChecker = () => {
   const refresh = useCookies()
+  const navigate = useNavigate()
   const { token, user } = UserAuth()
+  console.log(token)
 
   useEffect(() => {
     refresh()
   }, [])
 
-  return (
-    <>
-      <Outlet />
-      {token ? <Navigate to={`/overview`} /> : null}
-    </>
-  )
+  return token ? <Navigate to={'/overview'} /> : <Outlet />
 }
 
 export default LoginChecker
