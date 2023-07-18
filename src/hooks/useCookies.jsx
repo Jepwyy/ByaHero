@@ -7,7 +7,8 @@ const useCookies = () => {
   const refresh = async () => {
     const response = await axios.get('/auth/cookie')
     setUser(response.data.user)
-    setToken(true)
+    setToken(response.data.loggedIn)
+
     return response.data.user
   }
   return refresh

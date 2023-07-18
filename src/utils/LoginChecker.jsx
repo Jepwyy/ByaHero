@@ -14,8 +14,8 @@ const LoginChecker = () => {
 
   return (
     <>
-      {token ? <Navigate to={`/overview`} /> : <Navigate to={`/`} />}
       <Outlet />
+      {token ? <Navigate to={`/overview`} /> : null}
     </>
   )
 }

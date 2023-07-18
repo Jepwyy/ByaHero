@@ -5,6 +5,8 @@ import LandingPage from './pages/LandingPage'
 import OverviewPage from './pages/OverviewPage'
 import LoginPage from './pages/LoginPage'
 import LoginChecker from './utils/loginChecker'
+import Layout from './Layout/Layout'
+import PrivateRoute from './utils/PrivateRoute'
 
 function App() {
   const queryClient = new QueryClient({
@@ -23,7 +25,11 @@ function App() {
           <Route element={<LoginChecker />}>
             <Route path='/' element={<LandingPage />} />
             <Route path='/auth' element={<LoginPage />} />
-            <Route path='/overview' element={<OverviewPage />} />
+            <Route element={<PrivateRoute />}>
+              <Route element={<Layout />}>
+                <Route path='/overview' element={<OverviewPage />} />
+              </Route>
+            </Route>
           </Route>
         </Routes>
       </Router>
