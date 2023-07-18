@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import LandingPage from './pages/LandingPage'
 import OverviewPage from './pages/OverviewPage'
 import LoginPage from './pages/LoginPage'
+import LoginChecker from './utils/loginChecker'
 
 function App() {
   const queryClient = new QueryClient({
@@ -19,9 +20,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/auth' element={<LoginPage />} />
-          <Route path='/overview' element={<OverviewPage />} />
+          <Route element={<LoginChecker />}>
+            <Route path='/' element={<LandingPage />} />
+            <Route path='/auth' element={<LoginPage />} />
+            <Route path='/overview' element={<OverviewPage />} />
+          </Route>
         </Routes>
       </Router>
     </QueryClientProvider>

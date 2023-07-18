@@ -3,8 +3,11 @@ import { useMutation } from 'react-query'
 import { TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import axios from '../../api/api'
+import { UserAuth } from '../../context/authContext'
 const Login = () => {
   const navigate = useNavigate()
+  const { setToken, setUser } = UserAuth()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -16,7 +19,9 @@ const Login = () => {
     onError: (error) => {
       console.log(error.response.data.message)
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUser(data.data.user)
+      setToken(true)
       navigate('/overview')
     },
   })
