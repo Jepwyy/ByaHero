@@ -9,7 +9,7 @@ const Layout = () => {
           <Header />
         </div>
         <div className='flex-1 z-[0] bg-[#FAFAFA] h-[100vh] w-full overflow-auto relative scrollbar-thin scrollbar-thumb-black scrollbar-track-[#101112]'>
-          <div className=' px-[20%]'>
+          <div className=' px-[5%] xl:px-[20%] lg:px-[15%] md:px-[10%]'>
             <Outlet />
           </div>
         </div>

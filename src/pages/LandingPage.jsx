@@ -2,6 +2,8 @@ import React from 'react'
 import Logo from '../assets/img/Logoo.png'
 import { Link } from 'react-router-dom'
 const LandingPage = () => {
+  const key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  console.log(key)
   return (
     <div className='min-h-[100vh] bg-[#fff]'>
       <nav className='flex justify-between items-center border-b border-[#ccc] py-2 px-10'>
