@@ -1,11 +1,13 @@
 import React from 'react'
 import icon from '../assets/img/logo.png'
-import { formatDate } from '../../helpers/formatItems'
+import { formatDate } from '../helpers/formatItems'
+import { Link } from 'react-router-dom'
 const Cards = ({ plans }) => {
   return (
     <>
       {plans?.map((item, index) => (
-        <div
+        <Link
+          to={`/view/${item._id}`}
           key={index}
           className='bg-white border border-gray-300 shadow h-[10rem] w-[100%] p-4 flex flex-col gap-3'
         >
@@ -31,7 +33,7 @@ const Cards = ({ plans }) => {
               Status : <span className='text-xs uppercase'>{item.status}</span>
             </h1>
           </div>
-        </div>
+        </Link>
       ))}
     </>
   )
