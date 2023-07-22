@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider'
 import Logo from '../assets/img/Logo.png'
 import TitleIcon from '@mui/icons-material/Title'
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard'
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk'
 import RoomIcon from '@mui/icons-material/Room'
 import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection'
 import EditNoteIcon from '@mui/icons-material/EditNote'
@@ -60,18 +59,6 @@ const PlanDetailsCard = () => {
             <ListItemText
               primary='Departure'
               secondary={formatDate(data?.departureDate)}
-            />
-          </ListItem>
-          <Divider variant='inset' component='li' />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <DirectionsWalkIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary='Arrival'
-              secondary={formatDate(data?.arrivalDate)}
             />
           </ListItem>
           <Divider variant='inset' component='li' />

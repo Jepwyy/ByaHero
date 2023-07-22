@@ -1,11 +1,5 @@
 export function formatDate(dateTimeString) {
   if (dateTimeString) {
-    const originalDate = new Date(dateTimeString)
-
-    // Set the desired time (9:00 am)
-    originalDate.setUTCHours(9)
-    originalDate.setUTCMinutes(0)
-
     const options = {
       year: 'numeric',
       month: 'long',
@@ -17,6 +11,9 @@ export function formatDate(dateTimeString) {
 
     const dateFormatter = new Intl.DateTimeFormat('en-US', options)
 
-    return dateFormatter.format(originalDate)
+    const originalDate = new Date(dateTimeString)
+    const formattedDate = dateFormatter.format(originalDate)
+
+    return formattedDate
   }
 }

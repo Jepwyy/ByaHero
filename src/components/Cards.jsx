@@ -9,12 +9,14 @@ const Cards = ({ plans }) => {
         <Link
           to={`/view/${item._id}`}
           key={index}
-          className='bg-white border border-gray-300 shadow h-[10rem] w-[100%] p-4 flex flex-col gap-3'
+          className='bg-white border border-gray-300 shadow  w-[100%] p-4 flex flex-col gap-3'
         >
           <div className='flex items-center gap-2'>
             <img className='h-[3rem]' src={icon} alt='logo' />
             <div>
-              <h1 className='text-lg font-semibold'>{item.title}</h1>
+              <h1 className='text-lg font-semibold line-clamp-1'>
+                {item.title}
+              </h1>
               <h1 className='text-sm text-gray-700'>
                 Destination : {item.destination}
               </h1>
@@ -25,7 +27,7 @@ const Cards = ({ plans }) => {
               Departure : {formatDate(item.departureDate)}
             </h1>
             <h1 className='text-sm text-gray-500'>
-              Arrival : {formatDate(item.arrivalDate)}
+              Created : {formatDate(item.createdAt)}
             </h1>
           </div>
           <div>

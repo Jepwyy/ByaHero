@@ -8,7 +8,6 @@ const LoginChecker = () => {
   const refresh = useCookies()
   const navigate = useNavigate()
   const { token, user } = UserAuth()
-  console.log(token)
 
   useEffect(() => {
     refresh()

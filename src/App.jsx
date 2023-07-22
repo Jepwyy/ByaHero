@@ -10,6 +10,7 @@ import PrivateRoute from './utils/PrivateRoute'
 import CreatePlan from './pages/CreatePlan'
 import PersistLogin from './utils/PersistLogin'
 import ViewPlan from './pages/ViewPlan'
+import UpdatePlan from './pages/UpdatePlan'
 
 function App() {
   const queryClient = new QueryClient({
@@ -35,6 +36,7 @@ function App() {
                 <Route path='/overview' element={<OverviewPage />} />
                 <Route path='/plan' element={<CreatePlan />} />
                 <Route path='/view/:id' element={<ViewPlan />} />
+                <Route path='/update/:id' element={<UpdatePlan />} />
               </Route>
             </Route>
           </Route>

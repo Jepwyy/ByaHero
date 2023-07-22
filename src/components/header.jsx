@@ -3,6 +3,7 @@ import Logo from '../assets/img/Logoo.png'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { UserAuth } from '../context/authContext'
+import { Link } from 'react-router-dom'
 import axios from '../api/api'
 const Header = () => {
   const navigate = useNavigate()
@@ -27,9 +28,9 @@ const Header = () => {
   }
   return (
     <nav className='flex justify-between items-center bg-white border-b border-[#eee] py-2 px-10'>
-      <div className='flex items-center'>
+      <Link to={'/overview'} className='flex items-center'>
         <img className='h-[2.8rem]' src={Logo} />
-      </div>
+      </Link>
       <div onClick={logout} className='flex items-center gap-5'>
         <h1>Hello! {user.name}</h1>
         <button className='text-white bg-black py-2 px-4 rounded font-medium'>
