@@ -2,8 +2,7 @@ import React from 'react'
 import { useMutation } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from '../api/api'
-import Snackbar from '@mui/material/Snackbar'
-import MuiAlert from '@mui/material/Alert'
+
 const DeleteBtn = () => {
   const navigate = useNavigate()
   const { id } = useParams()

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import dayjs from 'dayjs'
+import CircularProgress from '@mui/material/CircularProgress'
 import { Button } from '@mui/material'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -128,7 +129,7 @@ const UpdatePlan = () => {
     }
   }
   if (isLoading) {
-    return <p>Loading...</p>
+    return <CircularProgress />
   }
 
   return (
