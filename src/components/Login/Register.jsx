@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { TextField } from '@mui/material'
 import axios from '../../api/api'
+import Swal from 'sweetalert2'
 import { useMutation } from 'react-query'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const Register = ({ setActive }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,10 +16,25 @@ const Register = ({ setActive }) => {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
-      alert(error.response.data.message)
+      toast.error(`${error.response.data.message}`, {
+        position: 'top-center',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     },
     onSuccess: () => {
-      alert('Registered Successfully')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registered Successfully!',
+        showConfirmButton: false,
+        timer: 1500,
+      })
       setActive('Login')
     },
   })
@@ -29,7 +47,16 @@ const Register = ({ setActive }) => {
         password: password,
       })
     } else {
-      alert('Password Not Match')
+      toast.warn('Password not match!', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     }
   }
   return (
@@ -76,6 +103,18 @@ const Register = ({ setActive }) => {
       >
         Register
       </button>
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </form>
   )
 }

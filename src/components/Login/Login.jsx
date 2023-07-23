@@ -3,6 +3,8 @@ import { useMutation } from 'react-query'
 import { TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import axios from '../../api/api'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { UserAuth } from '../../context/authContext'
 const Login = () => {
   const navigate = useNavigate()
@@ -17,9 +19,28 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
-      console.log(error.response.data.message)
+      toast.error(`${error.response.data.message}`, {
+        position: 'top-center',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     },
     onSuccess: (data) => {
+      toast.success(`Welcome ${data.data.user.name} !`, {
+        position: 'top-center',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
       setUser(data.data.user)
       setToken(true)
       navigate('/overview')
@@ -63,6 +84,18 @@ const Login = () => {
       <button className='border border-black py-2 px-4 font-medium rounded text-black'>
         Google Login
       </button>
+      <ToastContainer
+        position='top-center'
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </div>
   )
 }

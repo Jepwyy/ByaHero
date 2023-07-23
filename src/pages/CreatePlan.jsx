@@ -11,7 +11,9 @@ import Chip from '@mui/material/Chip'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import axios from '../api/api'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Swal from 'sweetalert2'
 const CreatePlan = () => {
   const navigate = useNavigate()
   const [companions, setCompanions] = useState('')
@@ -32,17 +34,41 @@ const CreatePlan = () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
-      console.log(error.response.data.message)
+      toast.error(`${error.response.data.message}`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     },
     onSuccess: (data) => {
-      alert(data.data.message)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `${data.data.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      })
       navigate('/overview')
     },
   })
 
   const handleAddCompanions = () => {
     if (companions == '') {
-      alert('Please Type A Word')
+      toast.warn('Please Type A Word', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     } else {
       setPlan((prev) => {
         return {
@@ -65,7 +91,16 @@ const CreatePlan = () => {
   }
   const handleAddThings = () => {
     if (things == '') {
-      alert('Please Type A Word')
+      toast.warn('Please Type A Word', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     } else {
       setPlan((prev) => {
         return {
@@ -116,7 +151,16 @@ const CreatePlan = () => {
     e.preventDefault()
 
     if (plan.departureDate == '') {
-      alert('Please Select Time and Date')
+      toast.warn('Please Select Time and Date', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     } else {
       mutation.mutate(plan)
     }
@@ -240,6 +284,18 @@ const CreatePlan = () => {
           Submit
         </Button>
       </form>
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </div>
   )
 }

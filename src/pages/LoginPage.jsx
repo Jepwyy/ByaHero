@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Login from '../components/Login/Login'
 import Register from '../components/Login/Register'
-
 const LoginPage = () => {
   const [active, setActive] = useState('Login')
   return (

@@ -4,6 +4,9 @@ import DeleteBtn from '../components/DeleteBtn'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from '../api/api'
 import { useMutation } from 'react-query'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Swal from 'sweetalert2'
 const ViewPlan = () => {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -13,15 +16,42 @@ const ViewPlan = () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
-      alert(error.response.data.message)
+      toast.error(`${error.response.data.message}`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     },
     onSuccess: (data) => {
-      alert(data.data.message)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `${data.data.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      })
       navigate('/overview')
     },
   })
   const handleMark = () => {
-    mutation.mutate()
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Are already done with this plan?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#000',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Mark as done',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutation.mutate()
+      }
+    })
   }
   return (
     <div className='flex flex-col gap-7'>
@@ -46,6 +76,18 @@ const ViewPlan = () => {
           Mark as done
         </button>
       </div>
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </div>
   )
 }

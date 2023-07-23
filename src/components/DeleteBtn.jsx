@@ -2,7 +2,9 @@ import React from 'react'
 import { useMutation } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from '../api/api'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Swal from 'sweetalert2'
 const DeleteBtn = () => {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -12,15 +14,42 @@ const DeleteBtn = () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
-      alert(error.response.data.message)
+      toast.error(`${error.response.data.message}`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     },
     onSuccess: (data) => {
-      alert(data.data.message)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `${data.data.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      })
       navigate('/overview')
     },
   })
   const handleDelete = () => {
-    mutation.mutate()
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#000',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        mutation.mutate()
+      }
+    })
   }
   return (
     <button
