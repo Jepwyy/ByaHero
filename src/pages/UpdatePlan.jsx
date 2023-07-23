@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import dayjs from 'dayjs'
@@ -8,7 +8,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import Chip from '@mui/material/Chip'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useMutation, useQuery } from 'react-query'
+import axios from '../api/api'
+
 const UpdatePlan = () => {
+  const { id } = useParams()
+  const navigate = useNavigate()
   const [companions, setCompanions] = useState('')
   const [things, setThings] = useState('')
   const [plan, setPlan] = useState({
@@ -20,7 +26,36 @@ const UpdatePlan = () => {
     thingsToBring: [],
     notes: '',
   })
-  console.log(plan.companion)
+  console.log(plan)
+
+  const { isLoading } = useQuery(['details'], async () => {
+    const response = await axios.get(`/plan/viewOne/${id}`)
+    setPlan({
+      ...plan,
+      title: response.data[0].title,
+      departureDate: response.data[0].departureDate,
+      destination: response.data[0].destination,
+      distance: response.data[0].distance,
+      companion: [response.data[0].companion],
+      thingsToBring: [response.data[0].thingsToBring],
+      notes: response.data[0].notes,
+    })
+  })
+
+  const mutation = useMutation({
+    mutationFn: (planDetails) =>
+      axios.put(`/plan/update/${id}`, planDetails, {
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    onError: (error) => {
+      console.log(error.response.data.message)
+    },
+    onSuccess: (data) => {
+      alert(data.data.message)
+      navigate(`/view/${id}`)
+    },
+  })
+
   const handleAddCompanions = () => {
     if (companions == '') {
       alert('Please Type A Word')
@@ -67,19 +102,58 @@ const UpdatePlan = () => {
       }
     })
   }
+  const handleChange = (e) => {
+    const { id, value } = e.target
+    setPlan((prev) => ({
+      ...prev,
+      [id]: value,
+    }))
+  }
+
+  const handleDateChange = (date) => {
+    const dateString = dayjs(date).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+
+    setPlan((prev) => ({
+      ...prev,
+      departureDate: dateString,
+    }))
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (plan.departureDate == '') {
+      alert('Please Select Time and Date')
+    } else {
+      mutation.mutate(plan)
+    }
+  }
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
   return (
     <div>
       <div className='flex justify-between mt-5'>
         <div className='text-3xl font-medium'> Create Plan</div>
         <div className='flex gap-3'>
-          <button className='bg-white border border-gray-300 py-2 px-3 font-medium rounded-md text-black'>
+          <Link
+            to={`/view/${id}`}
+            className='bg-white border border-gray-300 py-2 px-3 font-medium rounded-md text-black'
+          >
             Back
-          </button>
+          </Link>
         </div>
       </div>
-      <form className='flex flex-col gap-5 mt-6'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-5 mt-6'>
         <div>
-          <TextField id='title' label='Title' variant='outlined' />
+          <TextField
+            required
+            id='title'
+            label='Title'
+            value={plan?.title}
+            onChange={handleChange}
+            variant='outlined'
+          />
         </div>
 
         <div>
@@ -87,18 +161,30 @@ const UpdatePlan = () => {
             <DemoContainer components={['DateTimePicker']}>
               <DateTimePicker
                 label='Departure Date'
-                defaultValue={dayjs('2022-04-17T15:30')}
+                onChange={handleDateChange}
+                value={dayjs(plan?.departureDate)}
               />
             </DemoContainer>
           </LocalizationProvider>
         </div>
         <div>
-          <TextField id='destination' label='Destination' variant='outlined' />
+          <TextField
+            required
+            value={plan?.destination}
+            id='destination'
+            onChange={handleChange}
+            label='Destination'
+            variant='outlined'
+          />
         </div>
         <div>
           <TextField
+            required
+            value={plan?.distance}
             label='Distance'
             id='distance'
+            type='number'
+            onChange={handleChange}
             InputProps={{
               endAdornment: <InputAdornment position='end'>KM</InputAdornment>,
             }}
@@ -153,7 +239,15 @@ const UpdatePlan = () => {
           </div>
         </div>
         <div>
-          <TextField id='notes' label='Notes' multiline rows={4} />
+          <TextField
+            id='notes'
+            fullWidth
+            value={plan?.notes}
+            onChange={handleChange}
+            label='Notes'
+            multiline
+            rows={4}
+          />
         </div>
         <Button type='submit' variant='contained'>
           Submit
