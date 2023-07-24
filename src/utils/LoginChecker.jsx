@@ -5,15 +5,9 @@ import useCookies from '../hooks/useCookies'
 import { UserAuth } from '../context/authContext'
 
 const LoginChecker = () => {
-  const refresh = useCookies()
-  const navigate = useNavigate()
   const { token, user } = UserAuth()
 
-  useEffect(() => {
-    refresh()
-  }, [])
-
-  return token ? <Navigate to={'/overview'} /> : <Outlet />
+  return token == true ? <Navigate to={'/overview'} /> : <Outlet />
 }
 
 export default LoginChecker

@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { UserAuth } from '../../context/authContext'
 const Login = () => {
   const navigate = useNavigate()
-  const { setToken, setUser } = UserAuth()
+  const { setToken, setUser, token } = UserAuth()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
