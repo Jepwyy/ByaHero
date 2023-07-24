@@ -2,7 +2,7 @@ import React from 'react'
 
 import { formatDate } from '../helpers/formatItems'
 import { Link } from 'react-router-dom'
-import icon from '../assets/img/logo.png'
+import Logo from '../assets/img/logo.png'
 const Cards = ({ plans }) => {
   return (
     <>
@@ -13,7 +13,7 @@ const Cards = ({ plans }) => {
           className='bg-white border border-gray-300 shadow  w-[100%] p-4 flex flex-col gap-3'
         >
           <div className='flex items-center gap-2'>
-            <img className='h-[3rem]' src={icon} alt='logo' />
+            <img className='h-[3rem]' src={Logo} alt='logo' />
             <div>
               <h1 className='text-lg font-semibold line-clamp-1'>
                 {item.title}
