@@ -63,6 +63,7 @@ const Register = ({ setActive }) => {
     <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
       <div>
         <TextField
+          fullWidth
           onChange={(e) => setName(e.target.value)}
           id='name'
           label='Name'
@@ -71,6 +72,7 @@ const Register = ({ setActive }) => {
       </div>
       <div>
         <TextField
+          fullWidth
           onChange={(e) => setEmail(e.target.value)}
           id='email'
           label='Email'
@@ -79,6 +81,7 @@ const Register = ({ setActive }) => {
       </div>
       <div>
         <TextField
+          fullWidth
           onChange={(e) => setPassword(e.target.value)}
           id='password'
           label='Password'
@@ -89,6 +92,7 @@ const Register = ({ setActive }) => {
       </div>
       <div>
         <TextField
+          fullWidth
           onChange={(e) => setConfirmPassword(e.target.value)}
           id='confirmPassword'
           label='Confirm Password'

@@ -53,11 +53,24 @@ const Login = () => {
       password: password,
     })
   }
+  const handleGoogle = () => {
+    toast.warn(`${'This Feature Is Not Yet Available.'}`, {
+      position: 'top-center',
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    })
+  }
   return (
     <div className='flex flex-col gap-2'>
       <form className='flex flex-col gap-2' onSubmit={handleSubmit}>
         <div>
           <TextField
+            fullWidth
             id='email'
             onChange={(e) => setUsername(e.target.value)}
             label='Email'
@@ -66,6 +79,7 @@ const Login = () => {
         </div>
         <div>
           <TextField
+            fullWidth
             id='password'
             onChange={(e) => setPassword(e.target.value)}
             label='Password'
@@ -81,7 +95,10 @@ const Login = () => {
           Login
         </button>
       </form>
-      <button className='border border-black py-2 px-4 font-medium rounded text-black'>
+      <button
+        onClick={handleGoogle}
+        className='border border-black py-2 px-4 font-medium rounded text-black'
+      >
         Google Login
       </button>
       <ToastContainer
