@@ -17,11 +17,12 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import axios from '../api/api'
 import { formatDate } from '../helpers/formatItems'
-
+import { UserAuth } from '../context/authContext'
 const PlanDetailsCard = () => {
+  const { user } = UserAuth()
   const { id } = useParams()
   const { data } = useQuery(['view'], async () => {
-    const response = await axios.get(`plan/viewOne/${id}`)
+    const response = await axios.get(`plan/viewOne/${id}/${user._id}`)
     return response.data[0]
   })
   return (

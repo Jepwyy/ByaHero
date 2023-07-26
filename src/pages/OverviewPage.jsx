@@ -6,9 +6,17 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Cards from '../components/Cards'
+import useCookies from '../hooks/useCookies'
+import { UserAuth } from '../context/authContext'
 const OverviewPage = () => {
+  const { user } = UserAuth()
+
+  const refresh = useCookies()
+  const handleRefresh = () => {
+    refresh()
+  }
   const { data, isLoading, isError } = useQuery(['viewPlan'], async () => {
-    const response = await axios.get(`plan/view`)
+    const response = await axios.get(`plan/view/${user._id}`)
     return response.data
   })
 
@@ -37,12 +45,18 @@ const OverviewPage = () => {
         <ButtonGroup size='small' variant='text' aria-label='text button group'>
           <Button>All</Button>
           <Button>Pending</Button>
-          <Button>Finished</Button>
+          <Button onClick={handleRefresh}>Finished</Button>
         </ButtonGroup>
       </div>
-      <div className=' grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2'>
-        <Cards plans={data} />
-      </div>
+      {data.length == 0 ? (
+        <div className='text-center text-gray-400 text-2xl font-medium'>
+          --- No Plan's To Show, Create One Now!!! ---
+        </div>
+      ) : (
+        <div className=' grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2'>
+          <Cards plans={data} />
+        </div>
+      )}
     </div>
   )
 }

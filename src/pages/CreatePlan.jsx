@@ -14,7 +14,9 @@ import axios from '../api/api'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Swal from 'sweetalert2'
+import { UserAuth } from '../context/authContext'
 const CreatePlan = () => {
+  const { user } = UserAuth()
   const navigate = useNavigate()
   const [companions, setCompanions] = useState('')
   const [things, setThings] = useState('')
@@ -30,7 +32,7 @@ const CreatePlan = () => {
 
   const mutation = useMutation({
     mutationFn: (planDetails) =>
-      axios.post('/plan/create', planDetails, {
+      axios.post(`/plan/create/${user._id}`, planDetails, {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
