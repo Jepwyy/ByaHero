@@ -48,7 +48,7 @@ const OverviewPage = () => {
           <Button onClick={handleRefresh}>Finished</Button>
         </ButtonGroup>
       </div>
-      {data.length == 0 ? (
+      {data?.length == 0 ? (
         <div className='text-center text-gray-400 text-2xl font-medium'>
           --- No Plan's To Show, Create One Now!!! ---
         </div>
