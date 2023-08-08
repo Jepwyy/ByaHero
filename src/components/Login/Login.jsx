@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useMutation } from 'react-query'
 import { TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import LinearProgress from '@mui/material/CircularProgress'
 import axios from '../../api/api'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -42,7 +43,8 @@ const Login = () => {
         theme: 'light',
       })
       setUser(data.data.user)
-      setToken(true)
+
+      setToken(data.data.auth)
       navigate('/overview')
     },
   })
@@ -92,7 +94,7 @@ const Login = () => {
           type='submit'
           className='bg-black py-2 px-4 font-medium rounded text-white'
         >
-          Login
+          {mutation.isLoading ? <LinearProgress color='inherit' /> : 'Login'}
         </button>
       </form>
       <button

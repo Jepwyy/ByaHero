@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextField } from '@mui/material'
 import axios from '../../api/api'
 import Swal from 'sweetalert2'
+import LinearProgress from '@mui/material/CircularProgress'
 import { useMutation } from 'react-query'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -105,7 +106,7 @@ const Register = ({ setActive }) => {
         type='submit'
         className='bg-black py-2 px-4 font-medium rounded text-white'
       >
-        Register
+        {mutation.isLoading ? <LinearProgress color='inherit' /> : 'Register'}
       </button>
       <ToastContainer
         position='top-center'

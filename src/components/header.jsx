@@ -13,7 +13,7 @@ const Header = () => {
   const { setToken, setUser, user } = UserAuth()
   const mutation = useMutation({
     mutationFn: () =>
-      axios.delete('/auth/logout', {
+      axios.post('/auth/logout', {
         headers: { 'Content-Type': 'application/json' },
       }),
     onError: (error) => {
